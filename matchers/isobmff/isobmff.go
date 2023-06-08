@@ -23,3 +23,24 @@ func IsISOBMFF(buf []byte) bool { //传入字节数组，返回是不是
 
 	return true
 }
+
+// GetFtyp returns the major brand, minor version and compatible brands of the ISO-BMFF data
+func GetFtyp(buf []byte) (string, string, []string) {
+	if len(buf) < 17 {
+		return "", "", []string{""}
+	}
+
+	ftypLength := binary.BigEndian.Uint32(buf[0:4])
+
+	majorBrand := string(buf[8:12])
+	minorVersion := string(buf[12:16])
+
+	compatibleBrands := []string{}
+	for i := 16; i < int(ftypLength); i += 4 {
+		if len(buf) >= (i + 4) {
+			compatibleBrands = append(compatibleBrands, string(buf[i:i+4]))
+		}
+	}
+
+	return majorBrand, minorVersion, compatibleBrands
+}

@@ -20,6 +20,7 @@ var MatcherKeys []types.Type //只存Matchers键的数组
 
 // NewMatcher 创建并存储一个新的 type matcher function
 func NewMatcher(kind types.Type, fn Matcher) TypeMatcher { //传入Type和Matcher，返回TypeMatcher
+	//返回的这个TypeMatcher里面就包含了Matcher！！！！
 	matcher := func(buf []byte) types.Type {
 		if fn(buf) { //这里的意思是如果把Type传入到了Matcher中，返回的是true，说明匹配，就返回type
 			return kind
@@ -33,6 +34,7 @@ func NewMatcher(kind types.Type, fn Matcher) TypeMatcher { //传入Type和Matche
 	return matcher
 }
 
+// 在我们将所有小map存到Matchers的时候，
 func register(matchers ...Map) {
 	MatcherKeys = MatcherKeys[:0]
 	for _, m := range matchers {

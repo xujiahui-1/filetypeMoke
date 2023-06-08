@@ -14,8 +14,10 @@
   - isobmff:处理image用的iso文件类型相关代码
   - `document.go`:文本文件doc等等的处理器代码
   - `matchers.go` 处理器的初始化等等
-
---------
+- `filetype.go`:封装各种方法
+-  `kind.go`: 封装各种方法
+-  `match.go`:封装各种方法
+-------
 
 1. 最底层结构体`Type`,他包含文件扩展名属性和MIME属性，`MIME`结构体又包括TYPE,SUBTYPE和VALUE，其中TYPE+SUBTYPE=VALUE
 2. `TYPES`其实就是个并发安全的map，用来存储所有的TYPE类型，
